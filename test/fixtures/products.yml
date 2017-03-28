@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  calories_per_hundred_grams: MyString
+
+two:
+  name: MyString
+  calories_per_hundred_grams: MyString
