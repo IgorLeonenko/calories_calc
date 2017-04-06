@@ -1,4 +1,6 @@
 class NutrientsController < ApplicationController
+  before_action :set_nutrient, only: [:show, :edit, :update, :destroy]
+
   def index
     @nutrients = Nutrient.all
   end
@@ -22,13 +24,27 @@ class NutrientsController < ApplicationController
 
   def edit; end
 
-  def update; end
+  def update
+    if @nutrient.update(nutrient_params)
+      flash[:notice] = "Updated"
+      redirect_to nutrients_path
+    else
+      flash.now[:alert] = "Wrong"
+      render :edit
+    end
+  end
 
   def destroy
-
+    @nutrient.destroy
+    flash[:notice] = "Deleted"
+    redirect_to nutrients_path
   end
 
   private
+
+  def set_nutrient
+    @nutrient = Nutrient.find(params[:id])
+  end
 
   def nutrient_params
     params.require(:nutrient).permit(:name, :cal_per_gram, :percents)

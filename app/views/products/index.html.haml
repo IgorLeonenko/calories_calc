@@ -19,6 +19,6 @@
             %td
               = p.product_type
             %td
-              = link_to "Редактировать", product_path(p), class: "btn btn-warning btn-xs"
+              = link_to "Редактировать", edit_product_path(p), class: "btn btn-warning btn-xs"
               = link_to "X", product_path(p), method: :delete, data: {confirm: "Точно?"},
                 class: "btn btn-danger btn-xs"

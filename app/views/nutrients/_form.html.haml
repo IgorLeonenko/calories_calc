@@ -1,0 +1,12 @@
+.col-md-1
+.col-md-8
+  = simple_form_for(@nutrient) do |f|
+    = f.label :name, "Название"
+    = f.input :name, label: false
+    = f.label :cal_per_gram, "Калорий в грамме"
+    = f.input :cal_per_gram, label: false
+    = f.label :percents, "Процентов от рациона"
+    = f.input :percents, label: false
+    %br
+    = f.submit "#{ params[:action] == 'new' ? 'Добавить' : 'Редактировать'}", class: "btn btn-primary"
+.col-md-1

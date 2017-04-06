@@ -21,6 +21,6 @@
               = n.percents
               \%
             %td
-              = link_to "Редактировать", nutrient_path(n), class: "btn btn-warning btn-xs"
+              = link_to "Редактировать", edit_nutrient_path(n), class: "btn btn-warning btn-xs"
               = link_to "X", nutrient_path(n), method: :delete, data: {confirm: "Точно?"},
                 class: "btn btn-danger btn-xs"

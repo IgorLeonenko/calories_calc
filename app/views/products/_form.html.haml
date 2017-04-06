@@ -1,0 +1,12 @@
+.col-md-1
+.col-md-8
+  = simple_form_for(@product) do |f|
+    = f.label :name, "Название"
+    = f.input :name, label: false
+    = f.label :calories_per_hundred_grams, "Калорий в грамме"
+    = f.input :calories_per_hundred_grams, label: false
+    = f.label :product_type, "Тип нутриента"
+    = f.input :product_type, collection: Product::TYPES, label: false
+    %br
+    = f.submit "#{ params[:action] == 'new' ? 'Добавить' : 'Редактировать'}", class: "btn btn-primary"
+.col-md-3

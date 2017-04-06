@@ -1,7 +1,7 @@
 class Product < ActiveRecord::Base
   TYPES = %w(fat protein carbohydrate)
 
-  has_many :product_rations
+  has_many :product_rations, dependent: :destroy
   has_many :rations, through: :product_rations
 
   scope :proteins, -> { where(product_type: "protein") }
