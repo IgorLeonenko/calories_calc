@@ -1,0 +1,69 @@
+%h1
+  Вес тела:
+  = @weight.my_weight
+  kg
+  %br
+  Всего каллорий за день:
+  = @weight.total_calories
+  ccal
+
+%div
+  Нутриентов за день:
+  %br
+  Белки -
+  = @weight.proteins / 4
+  gram
+  %br
+  Жиры -
+  = @weight.fat / 9
+  gram
+  %br
+  Углеводы -
+  = @weight.carbohydrates / 4
+  gram
+
+%br
+
+%div
+  Список продуктов:
+  = simple_form_for(@products_in_list, url: add_product_path) do |f|
+    = f.input :product_id, collection: @products, label: false
+    = f.hidden_field :ration_id, value: @weight.id
+    = f.submit "+"
+
+%br
+
+%div
+  Еды за день:
+  %h3 Углеводы
+  - @carbohydrates.each do |pr|
+    = pr.name
+    = food_per_day(@weight.carbohydrates, pr)
+    gram
+    %br
+  %h3 Белки
+  - @proteins.each do |pr|
+    = pr.name
+    = food_per_day(@weight.proteins, pr)
+    gram
+    %br
+  %h3 Жиры включены в расчет
+
+%br
+
+%div
+  Еды за прием пищи:
+
+  %h3 Углеводы
+  - @carbohydrates.each do |pr|
+    = pr.name
+    = food_per_one_time(@weight.carbohydrates, pr)
+    gram
+    %br
+  %h3 Белки
+  - @proteins.each do |pr|
+    = pr.name
+    = food_per_one_time(@weight.proteins, pr)
+    gram
+    %br
+

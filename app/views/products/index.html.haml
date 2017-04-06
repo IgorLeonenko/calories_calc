@@ -1,0 +1,9 @@
+%h1 All products
+= link_to "add new product", new_product_path
+
+%div
+  - @products.each do |p|
+    = p.name
+    = p.calories_per_hundred_grams
+    = p.product_type
+    %br

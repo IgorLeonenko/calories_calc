@@ -1,0 +1,13 @@
+%h1 Nutrients
+= link_to "New nutrient", new_nutrient_path
+
+%div
+  - @nutrients.each do |n|
+    %div
+      %p= n.name
+      %p
+        = n.cal_per_gram
+        калл на грамм
+      %p
+        = n.percents
+        \%

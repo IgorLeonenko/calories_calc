@@ -26,6 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem "bootstrap-sass"
 gem "font-awesome-rails"
+gem "haml-rails", "~> 0.9"
 
 gem "simple_form"
 

@@ -1,0 +1,5 @@
+= simple_form_for(@product) do |f|
+  = f.input :name
+  = f.input :calories_per_hundred_grams
+  = f.select :product_type, Product::TYPES
+  = f.button :submit

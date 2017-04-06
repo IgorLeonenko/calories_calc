@@ -1,0 +1,20 @@
+%h1 Home
+= link_to "products", products_path
+%div
+  %h3 Nutrients
+  - @nutrients.each do |n|
+    %div
+      %p= n.name
+      %p
+        = n.cal_per_gram
+        калл на грамм
+      %p
+        = n.percents
+        \%
+= link_to "Nutrients", nutrients_path
+= link_to "Weight", new_weight_path
+
+%div
+  %h3 Weights
+  - @weights.each do |w|
+    = link_to w.my_weight, weight_path(w)
