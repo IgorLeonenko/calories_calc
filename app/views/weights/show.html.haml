@@ -1,69 +1,119 @@
-%h1
-  Вес тела:
-  = @weight.my_weight
-  kg
-  %br
+%h3.text-success
+  Вес тела
+  = @weight.my_weight.to_i
+  кг
+%h4.text-primary
   Всего каллорий за день:
   = @weight.total_calories
-  ccal
+  ккал
 
-%div
-  Нутриентов за день:
-  %br
-  Белки -
-  = @weight.proteins / 4
-  gram
-  %br
-  Жиры -
-  = @weight.fat / 9
-  gram
-  %br
-  Углеводы -
-  = @weight.carbohydrates / 4
-  gram
+.row
+  .col-md-12
+    .row
+      .col-md-6
+        %h3.text-info Нутриентов за день:
+        %ul.list-group
+          %li.list-group-item
+            Белки -
+            = @weight.proteins / 4
+            грамм
+          %li.list-group-item
+            Жиры -
+            = @weight.fat / 9
+            грамм
+          %li.list-group-item
+            Углеводы -
+            = @weight.carbohydrates / 4
+            грамм
+      .col-md-6
+        %h3.text-info Добавить продукты в рацион:
+        = simple_form_for(@products_in_list, url: add_product_path) do |f|
+          .col-md-11
+            = f.input :product_id, collection: @products, label: false
+            = f.hidden_field :ration_id, value: @weight.id
+          .col-md-1
+            = f.submit "+", class: "btn btn-primary"
 
-%br
+.row
+  .col-md-12
+    %h3.text-info Еды за день:
+    %ul.list-group.col-md-4
+      %li.list-group-item
+        %h4.text-warning Углеводы
+      - if @carbohydrates.size > 0
+        - @carbohydrates.each do |pr|
+          %li.list-group-item
+            = pr.name
+            = food_per_day(@weight.carbohydrates, pr)
+            грамм
+            = link_to "X", remove_product_path(product_id: pr.id),
+              method: :delete, data: {confirm: "Точно?"},
+              class: "btn btn-danger btn-xs"
+          - unless pr.id == @carbohydrates.last.id
+            %li.list-group-item
+              или
+      - else
+        %li.list-group-item Еще ничего не добавлено
 
-%div
-  Список продуктов:
-  = simple_form_for(@products_in_list, url: add_product_path) do |f|
-    = f.input :product_id, collection: @products, label: false
-    = f.hidden_field :ration_id, value: @weight.id
-    = f.submit "+"
+    %ul.list-group.col-md-4
+      %li.list-group-item
+        %h4.text-warning Белки
+      - if @proteins.size > 0
+        - @proteins.each do |pr|
+          %li.list-group-item
+            = pr.name
+            = food_per_day(@weight.proteins, pr)
+            грамм
+            = link_to "X", remove_product_path(product_id: pr.id),
+              method: :delete, data: {confirm: "Точно?"},
+              class: "btn btn-danger btn-xs"
+          - unless pr.id == @proteins.last.id
+            %li.list-group-item
+              или
+      - else
+        %li.list-group-item Еще ничего не добавлено
 
-%br
+    %ul.list-group.col-md-4
+      %li.list-group-item
+        %h4.text-warning Жиры
+      %li.list-group-item
+        включены в расчет
+.row
+  .col-md-12
+    %h3.text-info Еды за прием пищи:
 
-%div
-  Еды за день:
-  %h3 Углеводы
-  - @carbohydrates.each do |pr|
-    = pr.name
-    = food_per_day(@weight.carbohydrates, pr)
-    gram
-    %br
-  %h3 Белки
-  - @proteins.each do |pr|
-    = pr.name
-    = food_per_day(@weight.proteins, pr)
-    gram
-    %br
-  %h3 Жиры включены в расчет
+    %ul.list-group.col-md-4
+      %li.list-group-item
+        %h4.text-success Углеводы
+      - if @carbohydrates.size > 0
+        - @carbohydrates.each do |pr|
+          %li.list-group-item
+            = pr.name
+            = food_per_one_time(@weight.carbohydrates, pr)
+            грамм
+          - unless pr.id == @carbohydrates.last.id
+            %li.list-group-item
+              или
+      - else
+        %li.list-group-item Еще ничего не добавлено
 
-%br
+    %ul.list-group.col-md-4
+      %li.list-group-item
+        %h4.text-success Белки
+      - if @proteins.size > 0
+        - @proteins.each do |pr|
+          %li.list-group-item
+            = pr.name
+            = food_per_one_time(@weight.proteins, pr)
+            грамм
+          - unless pr.id == @proteins.last.id
+            %li.list-group-item
+              или
+      - else
+        %li.list-group-item Еще ничего не добавлено
 
-%div
-  Еды за прием пищи:
-
-  %h3 Углеводы
-  - @carbohydrates.each do |pr|
-    = pr.name
-    = food_per_one_time(@weight.carbohydrates, pr)
-    gram
-    %br
-  %h3 Белки
-  - @proteins.each do |pr|
-    = pr.name
-    = food_per_one_time(@weight.proteins, pr)
-    gram
-    %br
-
+    %ul.list-group.col-md-4
+      %li.list-group-item
+        %h4.text-success Жиры
+      %li.list-group-item
+        включены в расчет

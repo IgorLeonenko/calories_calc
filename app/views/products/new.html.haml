@@ -1,5 +1,14 @@
-= simple_form_for(@product) do |f|
-  = f.input :name
-  = f.input :calories_per_hundred_grams
-  = f.select :product_type, Product::TYPES
-  = f.button :submit
+%h3 Добавить продукт
+
+.col-md-1
+.col-md-8
+  = simple_form_for(@product) do |f|
+    = f.label :name, "Название"
+    = f.input :name, label: false
+    = f.label :calories_per_hundred_grams, "Калорий в грамме"
+    = f.input :calories_per_hundred_grams, label: false
+    = f.label :product_type, "Тип нутриента"
+    = f.input :product_type, collection: Product::TYPES, label: false
+    %br
+    = f.submit "Добавить", class: "btn btn-primary"
+.col-md-3

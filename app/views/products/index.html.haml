@@ -1,9 +1,24 @@
-%h1 All products
-= link_to "add new product", new_product_path
+%h1 Продукты
+= link_to "Добавить новый", new_product_path, class: "btn btn-info"
 
-%div
-  - @products.each do |p|
-    = p.name
-    = p.calories_per_hundred_grams
-    = p.product_type
-    %br
+.row
+  .col-md-12
+    %table.table
+      %thead
+        %th Название
+        %th Калорий на 100 грамм
+        %th Тип нутриента
+        %th Действия
+      %tbody
+        - @products.each do |p|
+          %tr
+            %td
+              = p.name
+            %td
+              = p.calories_per_hundred_grams
+            %td
+              = p.product_type
+            %td
+              = link_to "Редактировать", product_path(p), class: "btn btn-warning btn-xs"
+              = link_to "X", product_path(p), method: :delete, data: {confirm: "Точно?"},
+                class: "btn btn-danger btn-xs"

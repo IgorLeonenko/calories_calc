@@ -7,7 +7,24 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    - flash.each do |key, message|
-      %div{class: "alert alert-#{ key }"}
-        = message
-    = yield
+    .row
+      .col-md-1
+      .col-md-10
+        %ul.nav.nav-tabs
+          %li{role: "presentation", class: "#{params[:controller] == 'home' ? 'active' : ''}"}
+            = link_to "Главная", root_path
+          %li{role: "presentation", class: "#{params[:controller] == 'products' ? 'active' : ''}"}
+            = link_to "Продукты", products_path
+          %li{role: "presentation", class: "#{params[:controller] == 'nutrients' ? 'active' : ''}"}
+            = link_to "Нутриенты", nutrients_path
+          %li{role: "presentation", class: "#{params[:controller] == 'weights' ? 'active' : ''}"}
+            = link_to "Рацион", new_weight_path
+
+        - flash.each do |key, message|
+          %div{class: "alert alert-#{ key } alert-dismissible", role: "alert"}
+            %button{type: "button", class: "close", "data-dismiss": "alert", "aria-label": "Close"}
+              %span{"aria-hidden": "true"}
+                &times;
+            = message
+        = yield
+      .col-md-1

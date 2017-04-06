@@ -1,6 +1,7 @@
 class WeightsController < ApplicationController
+  before_action :set_weight, only: [:show, :destroy, :remove_product_from_ration]
+
   def show
-    @weight = Ration.find(params[:id])
     @products = Product.all
     @products_in_list = ProductRation.new
     @carbohydrates = Product.carbs(params[:id])
@@ -34,10 +35,25 @@ class WeightsController < ApplicationController
   end
 
   def remove_product_from_ration
+    product_in_ration = ProductRation.find_by_product_id_and_ration_id(
+      params[:product_id], @weight.id
+    )
+    product_in_ration.destroy
+    flash[:notice] = "Deleted"
+    redirect_to weight_path
+  end
 
+  def destroy
+    @weight.destroy
+    flash[:notice] = "Deleted"
+    redirect_to root_path
   end
 
   private
+
+  def set_weight
+    @weight = Ration.find(params[:id])
+  end
 
   def weight_params
     params.require(:ration).permit(:my_weight)

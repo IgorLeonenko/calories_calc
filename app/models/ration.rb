@@ -1,5 +1,5 @@
 class Ration < ActiveRecord::Base
-  has_many :product_rations
+  has_many :product_rations, dependent: :destroy
   has_many :products, through: :product_rations
 
   after_create :calculate_params

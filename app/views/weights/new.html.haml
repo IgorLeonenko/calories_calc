@@ -1,4 +1,9 @@
-%h1 Weight
-= simple_form_for(@weight, url: weights_path) do |f|
-  = f.input :my_weight
-  = f.button :submit
+%h3 Добавить вес
+
+.col-md-1
+.col-md-8
+  = simple_form_for(@weight, url: weights_path) do |f|
+    = f.label :my_weight, "Ввести вес"
+    = f.input :my_weight, label: false
+    = f.submit "Добавить", class: "btn btn-primary"
+.col-md-1

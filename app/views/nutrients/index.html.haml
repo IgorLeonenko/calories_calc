@@ -1,13 +1,26 @@
-%h1 Nutrients
-= link_to "New nutrient", new_nutrient_path
+%h1 Нутриенты
+= link_to "Добавить новый", new_nutrient_path, class: "btn btn-info"
 
-%div
-  - @nutrients.each do |n|
-    %div
-      %p= n.name
-      %p
-        = n.cal_per_gram
-        калл на грамм
-      %p
-        = n.percents
-        \%
+.row
+  .col-md-12
+    %table.table
+      %thead
+        %th Название
+        %th Калорий в грамме
+        %th Процентов в пище
+        %th Действия
+      %tbody
+        - @nutrients.each do |n|
+          %tr
+            %td
+              = n.name
+            %td
+              = n.cal_per_gram
+              калл на грамм
+            %td
+              = n.percents
+              \%
+            %td
+              = link_to "Редактировать", nutrient_path(n), class: "btn btn-warning btn-xs"
+              = link_to "X", nutrient_path(n), method: :delete, data: {confirm: "Точно?"},
+                class: "btn btn-danger btn-xs"
