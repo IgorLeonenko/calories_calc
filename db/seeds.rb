@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Nutrient.destroy_all
+
+Nutrient.create(name: "Protein", cal_per_gram: 4, percents: 30)
+Nutrient.create(name: "Fat", cal_per_gram: 9, percents: 10)
+Nutrient.create(name: "Carbohydrate", cal_per_gram: 4, percents: 60)
