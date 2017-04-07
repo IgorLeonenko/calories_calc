@@ -12,10 +12,10 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      flash[:notice] = "saved"
+      flash[:notice] = "Сохранено удачно"
       redirect_to products_path
     else
-      flash.now[:alert] = "not saved"
+      flash.now[:alert] = "Не сохранено"
       render :new
     end
   end
@@ -24,17 +24,17 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
-      flash[:notice] = "Updated"
+      flash[:notice] = "Значение обновлено"
       redirect_to products_path
     else
-      flas.now[:alert] = "Not updated"
+      flash.now[:alert] = "Не обновлено"
       render :edit
     end
   end
 
   def destroy
     @product.destroy
-    flash[:notice] = "Deleted"
+    flash[:notice] = "Значение удалено"
     redirect_to products_path
   end
 

@@ -8,5 +8,5 @@
     = f.label :product_type, "Тип нутриента"
     = f.input :product_type, collection: Product::TYPES, label: false
     %br
-    = f.submit "#{ params[:action] == 'new' ? 'Добавить' : 'Редактировать'}", class: "btn btn-primary"
+    = f.submit "#{ @product.persisted? ? 'Редактировать' : 'Добавить'}", class: "btn btn-primary"
 .col-md-3

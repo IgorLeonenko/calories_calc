@@ -1,6 +1,11 @@
 class Product < ActiveRecord::Base
   TYPES = %w(fat protein carbohydrate)
 
+  validates :name, :calories_per_hundred_grams,
+            :product_type, presence: { message: "Должно быть заполнено" }
+  validates :calories_per_hundred_grams, numericality: { message: "Только цифры" }
+  validates :product_type, inclusion: { in: TYPES, message: "Только из списка" }
+
   has_many :product_rations, dependent: :destroy
   has_many :rations, through: :product_rations
 

@@ -2,7 +2,8 @@ class WeightsController < ApplicationController
   before_action :set_weight, only: [:show, :destroy, :remove_product_from_ration]
 
   def show
-    @products = Product.all
+    @products_proteins = Product.proteins
+    @products_carbohydrates = Product.carbohydrates
     @products_in_list = ProductRation.new
     @carbohydrates = Product.carbs(params[:id])
     @proteins = Product.prots(params[:id])
@@ -15,10 +16,10 @@ class WeightsController < ApplicationController
   def create
     @weight = Ration.new(weight_params)
     if @weight.save
-      flash[:notice] = "saved"
+      flash[:notice] = "Сохранено удачно"
       redirect_to root_path
     else
-      flash.now[:alert] = "not saved"
+      flash.now[:alert] = "Не сохранено"
       render :new
     end
   end
@@ -26,10 +27,10 @@ class WeightsController < ApplicationController
   def add_product_to_ration
     @products_in_list = ProductRation.new(products_in_list_params)
     if @products_in_list.save
-      flash[:notice] = "Product added to list"
+      flash[:notice] = "Продукт доавлен в список"
       redirect_to weight_path(params[:product_ration][:ration_id])
     else
-      flash[:alert] = @products_in_list.errors.full_messages.join("")
+      flash[:alert] = @products_in_list.errors.get(:product_id).join("")
       redirect_to weight_path(params[:product_ration][:ration_id])
     end
   end
@@ -39,13 +40,13 @@ class WeightsController < ApplicationController
       params[:product_id], @weight.id
     )
     product_in_ration.destroy
-    flash[:notice] = "Deleted"
+    flash[:notice] = "Продукт удален из списка"
     redirect_to weight_path
   end
 
   def destroy
     @weight.destroy
-    flash[:notice] = "Deleted"
+    flash[:notice] = "Значение удалено"
     redirect_to root_path
   end
 

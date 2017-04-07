@@ -29,7 +29,14 @@
         %h3.text-info Добавить продукты в рацион:
         = simple_form_for(@products_in_list, url: add_product_path) do |f|
           .col-md-11
-            = f.input :product_id, collection: @products, label: false
+            = f.input :product_id, collection: @products_proteins, label: false, prompt: "Белки"
+            = f.hidden_field :ration_id, value: @weight.id
+          .col-md-1
+            = f.submit "+", class: "btn btn-primary"
+        = simple_form_for(@products_in_list, url: add_product_path) do |f|
+          .col-md-11
+            = f.input :product_id, collection: @products_carbohydrates, label: false,
+              prompt: "Углеводы"
             = f.hidden_field :ration_id, value: @weight.id
           .col-md-1
             = f.submit "+", class: "btn btn-primary"
@@ -44,6 +51,7 @@
         - @carbohydrates.each do |pr|
           %li.list-group-item
             = pr.name
+            \:
             = food_per_day(@weight.carbohydrates, pr)
             грамм
             = link_to "X", remove_product_path(product_id: pr.id),
@@ -62,6 +70,7 @@
         - @proteins.each do |pr|
           %li.list-group-item
             = pr.name
+            \:
             = food_per_day(@weight.proteins, pr)
             грамм
             = link_to "X", remove_product_path(product_id: pr.id),
@@ -89,6 +98,7 @@
         - @carbohydrates.each do |pr|
           %li.list-group-item
             = pr.name
+            \:
             = food_per_one_time(@weight.carbohydrates, pr)
             грамм
           - unless pr.id == @carbohydrates.last.id
@@ -104,6 +114,7 @@
         - @proteins.each do |pr|
           %li.list-group-item
             = pr.name
+            \:
             = food_per_one_time(@weight.proteins, pr)
             грамм
           - unless pr.id == @proteins.last.id

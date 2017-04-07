@@ -2,6 +2,9 @@ class Ration < ActiveRecord::Base
   has_many :product_rations, dependent: :destroy
   has_many :products, through: :product_rations
 
+  validates :my_weight, presence: { message: "Должно быть заполнено" },
+            uniqueness: { message: "Этот вес уже есть" }
+
   after_create :calculate_params
 
   private

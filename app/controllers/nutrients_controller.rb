@@ -12,10 +12,10 @@ class NutrientsController < ApplicationController
   def create
     @nutrient = Nutrient.new(nutrient_params)
     if @nutrient.save
-      flash[:notice] = "Saved"
+      flash[:notice] = "Сохранено удачно"
       redirect_to nutrients_path
     else
-      flash.now[:alert] = "Not saved"
+      flash.now[:alert] = "Не сохранено"
       render :new
     end
   end
@@ -26,17 +26,17 @@ class NutrientsController < ApplicationController
 
   def update
     if @nutrient.update(nutrient_params)
-      flash[:notice] = "Updated"
+      flash[:notice] = "Значение обновлено"
       redirect_to nutrients_path
     else
-      flash.now[:alert] = "Wrong"
+      flash.now[:alert] = "Не обновлено"
       render :edit
     end
   end
 
   def destroy
     @nutrient.destroy
-    flash[:notice] = "Deleted"
+    flash[:notice] = "Значение удалено"
     redirect_to nutrients_path
   end
 
