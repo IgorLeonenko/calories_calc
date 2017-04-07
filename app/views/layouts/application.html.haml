@@ -18,7 +18,7 @@
           %li{role: "presentation", class: "#{params[:controller] == 'nutrients' ? 'active' : ''}"}
             = link_to "Нутриенты", nutrients_path
           %li{role: "presentation", class: "#{params[:controller] == 'weights' ? 'active' : ''}"}
-            = link_to "Рацион", new_weight_path
+            = link_to "Рацион/Добавить вес", new_weight_path
 
         - flash.each do |key, message|
           %div{class: "alert alert-#{ key } alert-dismissible", role: "alert"}
