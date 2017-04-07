@@ -3,6 +3,9 @@
 
 .row
   .col-md-12
+  - if @nutrients.empty?
+    %h4 Еще ничего не добавлено
+  - else
     %table.table
       %thead
         %th Название

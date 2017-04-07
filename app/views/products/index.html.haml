@@ -3,22 +3,25 @@
 
 .row
   .col-md-12
-    %table.table
-      %thead
-        %th Название
-        %th Калорий на 100 грамм
-        %th Тип нутриента
-        %th Действия
-      %tbody
-        - @products.each do |p|
-          %tr
-            %td
-              = p.name
-            %td
-              = p.calories_per_hundred_grams
-            %td
-              = p.product_type
-            %td
-              = link_to "Редактировать", edit_product_path(p), class: "btn btn-warning btn-xs"
-              = link_to "X", product_path(p), method: :delete, data: {confirm: "Точно?"},
-                class: "btn btn-danger btn-xs"
+    -if @products.empty?
+      %h4 Еще ничего не добавлено
+    - else
+      %table.table
+        %thead
+          %th Название
+          %th Калорий на 100 грамм
+          %th Тип нутриента
+          %th Действия
+        %tbody
+          - @products.each do |p|
+            %tr
+              %td
+                = p.name
+              %td
+                = p.calories_per_hundred_grams
+              %td
+                = p.product_type
+              %td
+                = link_to "Редактировать", edit_product_path(p), class: "btn btn-warning btn-xs"
+                = link_to "X", product_path(p), method: :delete, data: {confirm: "Точно?"},
+                  class: "btn btn-danger btn-xs"
